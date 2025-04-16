@@ -6,4 +6,8 @@ node_modules/*
 helix-importer-ui
 .DS_Store
 *.bak
-.idea
+react-ui/build/*
+react-ui/node_modules/*
+react-ui/package-lock.json
+
+static/*
