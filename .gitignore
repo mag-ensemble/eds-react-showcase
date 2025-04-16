@@ -9,5 +9,3 @@ helix-importer-ui
 react-ui/build/*
 react-ui/node_modules/*
 react-ui/package-lock.json
-
-static/*
