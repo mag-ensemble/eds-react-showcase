@@ -4,10 +4,11 @@
   "version": "1.3.0",
   "description": "Starter project for Adobe Helix",
   "scripts": {
-    "lint:js": "eslint .",
+    "lint:js": "eslint '{scripts,blocks,utils}/**/*.{js,ts,json}' --fix",
     "lint:css": "stylelint \"blocks/**/*.css\" \"styles/*.css\"",
     "lint": "npm run lint:js && npm run lint:css",
-    "lint:fix": "npm run lint:js -- --fix && npm run lint:css -- --fix"
+    "postcss-autoprefix": "postcss blocks/**/*.css styles/*.css --use autoprefixer --replace --no-map",
+    "format": "npm run lint && npx prettier --write ."
   },
   "repository": {
     "type": "git",
@@ -23,8 +24,30 @@
     "@babel/eslint-parser": "7.27.0",
     "eslint": "8.57.1",
     "eslint-config-airbnb-base": "15.0.0",
+    "eslint-config-prettier": "^10.1.2",
     "eslint-plugin-import": "2.31.0",
+    "eslint-plugin-jest": "^28.11.0",
+    "eslint-plugin-prettier": "^5.2.6",
+    "lint-staged": "^15.5.1",
+    "postcss": "^8.5.3",
+    "postcss-cli": "^11.0.1",
+    "prettier": "^3.5.3",
+    "prettier-plugin-css-order": "^2.1.2",
     "stylelint": "16.18.0",
-    "stylelint-config-standard": "38.0.0"
+    "stylelint-config-standard": "38.0.0",
+    "stylelint-use-nesting": "^6.0.0"
+  },
+  "lint-staged": {
+    "*.md": [
+      "prettier --write"
+    ],
+    "{blocks,scripts,utils}/**/*.{js,json}": [
+      "eslint --fix",
+      "prettier --write"
+    ],
+    "*.css": [
+      "stylelint --fix",
+      "prettier --write"
+    ]
   }
 }
