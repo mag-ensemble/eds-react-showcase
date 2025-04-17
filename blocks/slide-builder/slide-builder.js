@@ -14,14 +14,16 @@ export default async function decorate(block) {
       }
     }
   
-    async function fetchSlides() {
-      const response = await fetch("query-index.json");
-      const json = await response.json();
+    async function fetchSlides(block) {
+    
+      const { href } = block.querySelector('a');
+      const resp = await fetch(href);
+      const json = await resp.json();
       
       const slides = [];
         for (const slide of json.data) {
             
-        if ((window.innerWidth > 799) && slide.path.includes('/slides/')) {
+        if (window.innerWidth > 799)  {
           slide.html = await fetchSlideHtml(slide.path);
         } else {
           slide.html = null;
@@ -136,7 +138,7 @@ export default async function decorate(block) {
     }
   
     const container = document.querySelector(".slide-builder");
-    const slides = await fetchSlides();
+    const slides = await fetchSlides(block);
   
     const observer = new IntersectionObserver(
       (entries, observer) => {
@@ -157,5 +159,9 @@ export default async function decorate(block) {
       observer.observe(slideItem);
       container.appendChild(slideItem);
     }
+  
+    const buttonContainer = container.querySelector('.button-container');
+    buttonContainer.remove();
+  
   }
   
